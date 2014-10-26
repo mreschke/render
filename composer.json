@@ -17,5 +17,5 @@
             "src/Mreschke/Render"
         ]
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }
