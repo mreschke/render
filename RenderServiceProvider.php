@@ -15,7 +15,7 @@ class RenderServiceProvider extends ServiceProvider {
 	 *
 	 * @var bool
 	 */
-	protected $defer = false;
+	protected $defer = true;
 
 	/**
 	 * Register the service provider.
@@ -24,10 +24,12 @@ class RenderServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		\Lifecycle::add(__FILE__.' - '.__FUNCTION__);
+		// Register Render Facades
+		$loader = \Illuminate\Foundation\AliasLoader::getInstance();
+		$loader->alias('Render', 'Mreschke\Render\Facades\Renbder');
 
 		// Bind to IoC
-		$sql = \App::make("Mreschke\Dbal\\".studly_case(\Config::get('my.db.default_type', 'Mysql')));
+		$sql = $this->app->make("Mreschke\Dbal\\".studly_case(\Config::get('database.default', 'mysql')));
 		$this->app->bind('Mreschke\Render\Render', function() use($sql) {
 			return new Render($sql);
 		});
@@ -40,7 +42,7 @@ class RenderServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		\Lifecycle::add(__FILE__.' - '.__FUNCTION__);
+		//
 	}
 
 	/**
