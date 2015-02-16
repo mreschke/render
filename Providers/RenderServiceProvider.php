@@ -1,4 +1,4 @@
-<?php namespace Mreschke\Render;
+<?php namespace Mreschke\Render\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -18,6 +18,16 @@ class RenderServiceProvider extends ServiceProvider {
 	protected $defer = true;
 
 	/**
+	 * Bootstrap the application events.
+	 *
+	 * @return void
+	 */
+	public function boot()
+	{
+		//
+	}
+
+	/**
 	 * Register the service provider.
 	 *
 	 * @return void
@@ -33,16 +43,7 @@ class RenderServiceProvider extends ServiceProvider {
 		$this->app->bind('Mreschke\Render\Render', function() use($sql) {
 			return new Render($sql);
 		});
-	}
-
-	/**
-	 * Bootstrap the application events.
-	 *
-	 * @return void
-	 */
-	public function boot()
-	{
-		//
+		$this->app->bind('Mreschke\Render', 'Mreschke\Render\Render');
 	}
 
 	/**
@@ -52,7 +53,7 @@ class RenderServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array('Mreschke\Render\Render');
+		return array('Mreschke\Render\Render', 'Mreschke\Render');
 	}
 
 }
