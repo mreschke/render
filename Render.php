@@ -1,7 +1,6 @@
 <?php namespace Mreschke\Render;
 
 use Mreschke\Dbal\DbalInterface;
-use Str;
 use Request;
 use Layout;
 
@@ -210,7 +209,7 @@ class Render
 		} else {
 			// Initial view, non ajax.  Show dataTables javascript and empty table template
 			// We keep the main dataTables.js, which has all the fnSetFilterDelay!!!
-			$oTable = Str::studly($name);
+			$oTable = studly_case($name);
 			Layout::script("
 				var search_timeout = undefined;
 				$(function() {
