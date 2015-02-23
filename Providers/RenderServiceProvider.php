@@ -1,6 +1,7 @@
 <?php namespace Mreschke\Render\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\AliasLoader;
+use Mrcore\Modules\Foundation\Support\ServiceProvider;
 
 /**
  * Provide Render services.
@@ -34,16 +35,18 @@ class RenderServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		// Register Render Facades
-		$loader = \Illuminate\Foundation\AliasLoader::getInstance();
-		$loader->alias('Render', 'Mreschke\Render\Facades\Renbder');
+		// Register Facades
+		$facade = AliasLoader::getInstance();
+		$facade->alias('Render', 'Mreschke\Render\Facades\Render');
 
-		// Bind to IoC
+		// Main Binding
 		$sql = $this->app->make("Mreschke\Dbal\\".studly_case(\Config::get('database.default', 'mysql')));
-		$this->app->bind('Mreschke\Render\Render', function() use($sql) {
+		$this->app->bind('Mreschke\Render', function() use($sql) {
 			return new Render($sql);
 		});
-		$this->app->bind('Mreschke\Render', 'Mreschke\Render\Render');
+		
+		// Alternate, full namespace Binding
+		$this->app->bind('Mreschke\Render\Render', 'Mreschke\Render');
 	}
 
 	/**
@@ -53,7 +56,10 @@ class RenderServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array('Mreschke\Render\Render', 'Mreschke\Render');
+		return array(
+			'Mreschke\Render',
+			'Mreschke\Render\Render',
+		);
 	}
 
 }
