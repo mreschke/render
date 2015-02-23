@@ -1,5 +1,6 @@
 <?php namespace Mreschke\Render\Providers;
 
+use Mreschke\Render\Render;
 use Illuminate\Foundation\AliasLoader;
 use Mrcore\Modules\Foundation\Support\ServiceProvider;
 
