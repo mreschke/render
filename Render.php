@@ -1,8 +1,8 @@
 <?php namespace Mreschke\Render;
 
-use Mreschke\Dbal\DbalInterface;
-use Request;
 use Layout;
+use Request;
+use Mreschke\Dbal\DbalInterface;
 
 /**
  * Render gui components.
@@ -64,9 +64,9 @@ class Render
 
 
 		if (!Request::ajax()) {
-			Layout::js(asset('js/select2.min.js'));
-			Layout::css(asset('css/select2.min.css'));
-			Layout::css(asset('css/select2-bootstrap.min.css'));
+			Layout::js('js/select2.min.js');
+			Layout::css('css/select2.min.css');
+			Layout::css('css/select2-bootstrap.min.css');
 
 			$tagText = '';
 			if (isset($list) && !$options['useTags'] && !$options['url']) {
@@ -173,8 +173,6 @@ class Render
 					}
 				";
 			}
-
-
 			$script .= "});";
 
 
