@@ -42,12 +42,10 @@ class RenderServiceProvider extends ServiceProvider {
 
 		// Main Binding
 		$sql = $this->app->make("Mreschke\Dbal\\".studly_case(\Config::get('database.default', 'mysql')));
-		$this->app->bind('Mreschke\Render', function() use($sql) {
+		$this->app->bind('Mreschke\Render\Render', function() use($sql) {
 			return new Render($sql);
 		});
-		
-		// Alternate, full namespace Binding
-		$this->app->bind('Mreschke\Render\Render', 'Mreschke\Render');
+		$this->app->alias('Mreschke\Render\Render', 'Mreschke\Render');
 	}
 
 	/**
@@ -57,10 +55,7 @@ class RenderServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array(
-			'Mreschke\Render',
-			'Mreschke\Render\Render',
-		);
+		return array('Mreschke\Render\Render');
 	}
 
 }
