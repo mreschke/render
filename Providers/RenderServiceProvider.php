@@ -2,7 +2,7 @@
 
 use Mreschke\Render\Render;
 use Illuminate\Foundation\AliasLoader;
-use Mrcore\Modules\Foundation\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider;
 
 /**
  * Provide Render services.
