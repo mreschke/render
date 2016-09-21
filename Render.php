@@ -64,9 +64,6 @@ class Render
 
 
 		if (!Request::ajax()) {
-			Layout::js('js/select2.min.js');
-			Layout::css('css/select2.min.css');
-			Layout::css('css/select2-bootstrap.min.css');
 
 			$tagText = '';
 			if (isset($list) && !$options['useTags'] && !$options['url']) {
@@ -90,7 +87,7 @@ class Render
 					}
 				}
 				echo '</select>';
-			
+
 			} elseif ($options['useTags']) {
 				echo "<input type='hidden' id='$name'/>";
 				$tagText = 'tags: ["'.implode('","', $list).'"]';
@@ -196,7 +193,7 @@ class Render
 		$dt = new Datatables();
 		call_user_func($function, $dt);
 		if (Request::ajax()) {
-			
+
 			//FIX ME, if two datatables on same page, get problems
 
 			// Ajax request from datatables script below

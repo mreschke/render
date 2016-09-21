@@ -77,7 +77,7 @@ class Datatables
 	 * @return void|string
 	 */
 	public function style($value = null) {
-		return $this->getSet(__FUNCTION__, $value);	
+		return $this->getSet(__FUNCTION__, $value);
 	}
 
 	/**
@@ -86,7 +86,7 @@ class Datatables
 	 * @return void|boolean
 	 */
 	public function hideFooter($value = null) {
-		return $this->getSet(__FUNCTION__, $value);	
+		return $this->getSet(__FUNCTION__, $value);
 	}
 
 	/**
@@ -167,10 +167,10 @@ class Datatables
 		$this->expand();
 
 		// Get total rows
-		$total = $db->query($this->totalQuery)->pluck();
+		$total = $db->query($this->totalQuery)->value();
 
 		// Get total filtered rows
-		$filteredTotal = $db->query($this->filteredTotalQuery)->pluck();
+		$filteredTotal = $db->query($this->filteredTotalQuery)->value();
 
 		// Get our data
 		$result = $db->query($this->query);
@@ -204,14 +204,14 @@ class Datatables
 			#for ($r = 0; $r <= $result->count() - 1; $r++) {
 				#echo "dd";
 
-			
+
 				#$row = mssql_fetch_assoc($this->result);
 				$line = array();
 				$f=0;
 				foreach($row as $colname => $data) {
 					if ($this->columns[$f]['visible']) {
 						$datatype = $this->columns[$f]['datatype'];
-						
+
 						//Escape data
 						$data = htmlentities($data, ENT_QUOTES, 'utf-8', false);
 
@@ -322,7 +322,7 @@ class Datatables
 				$sSearchCol[$i] = Input::get("sSearch_$i");
 			}
 		}
-		
+
 		//Prepare SQL Sorting
 		//First sorted column is $_GET['iSortCol_x'] (where x is the first column sorted, starts at 0);
 		//$_GET['sSortDir_0']=asc or desc is first column direction
@@ -387,7 +387,7 @@ class Datatables
 
 				#$col = $this->columns[intval($key)]->column;
 				#$datatype = $this->columns[intval($key)]->datatype;
-				
+
 				// Parser && (AND) and || (OR) multiple statements
 				$matchor = false;
 				$matches = array($val);
@@ -397,7 +397,7 @@ class Datatables
 					$matchor = true;
 					$matches = explode("||", $val);
 				}
-				
+
 				foreach ($matches as $val) {
 					$val = trim($val);
 					if (stristr($col, " as ")) {
@@ -409,11 +409,11 @@ class Datatables
 					} else {
 						$this->where .= ($this->where=='') ? "WHERE " : " AND ";
 					}
-					
+
 					$yes = array('y','yes','1','e','s','ye','es','t','true');
 					$no = array('n','no','o','-1','f','false');
 					$na = array('na','n/a','0');
-					
+
 					if ($val == '!') {
 						$this->where .= "($col = '' or $col is NULL) ";
 					} elseif ($val == '=') {
@@ -429,7 +429,7 @@ class Datatables
 							} elseif (in_array($val, $na)) {
 								$this->where .= "$col = 0 ";
 							} else {
-								$this->where .= "$col LIKE '%$val%' ";    
+								$this->where .= "$col LIKE '%$val%' ";
 							}
 						} elseif ($datatype == 'bool') {
 							//Searching on bool (Yes/No) Column
@@ -439,8 +439,8 @@ class Datatables
 							} elseif (in_array($val, $no)) {
 								$this->where .= "$col = 0 ";
 							} else {
-								$this->where .= "$col LIKE '%$val%' ";    
-							}                        
+								$this->where .= "$col LIKE '%$val%' ";
+							}
 						} else {
 							if (in_array(substr($val, 0, 2), array('<=', '>=', '!='))) {
 								$condit = substr($val, 0, 2);
@@ -458,15 +458,15 @@ class Datatables
 									$condit = 'LIKE';
 									$val = "'%$val%'";
 								}
-								
-							}                            
+
+							}
 							$this->where .= "$col $condit $val ";
-						}                    
-					}                    
+						}
+					}
 				}
 			}
 		}
-		
+
 		//Ordering
 		if (count($iSortCol) > 0) {
 			$this->order = "ORDER BY  ";
