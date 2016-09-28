@@ -6,13 +6,16 @@
  * @license http://mreschke.com/license/mit
  * @author Matthew Reschke <mail@mreschke.com>
  */
-class Render extends \Illuminate\Support\Facades\Facade {
+class Render extends \Illuminate\Support\Facades\Facade
+{
 
-	/**
-	 * Get the registered name of the component.
-	 *
-	 * @return string
-	 */
-	protected static function getFacadeAccessor() { return 'Mreschke\Render\Render'; }
-
+    /**
+     * Get the registered name of the component.
+     *
+     * @return string
+     */
+    protected static function getFacadeAccessor()
+    {
+        return 'Mreschke\Render\Render';
+    }
 }
