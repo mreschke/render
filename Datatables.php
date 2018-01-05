@@ -301,7 +301,7 @@ class Datatables
 
     /**
      * Build our sql query based on datatables json ajax requests.
-     * @return void, builds $this->query instead
+     * @return void
      */
     public function expand()
     {
