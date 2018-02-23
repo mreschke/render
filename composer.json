@@ -3,10 +3,10 @@
     "type": "library",
     "description": "Mreschke Render",
     "keywords": ["mreschke", "render"],
-    "homepage": "http://github.com/mreschke/mreschke-render",
+    "homepage": "http://github.com/mreschke/render",
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/mreschke/mreschke-render/issues"
+        "issues": "https://github.com/mreschke/render/issues"
     },
     "authors": [
         {
