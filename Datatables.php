@@ -205,11 +205,6 @@ class Datatables
 
         if (isset($rows)) { // required
             foreach ($rows as $row) {
-                #for ($r = 0; $r <= $result->count() - 1; $r++) {
-                #echo "dd";
-
-
-                #$row = mssql_fetch_assoc($this->result);
                 $line = array();
                 $f=0;
                 foreach ($row as $colname => $data) {
@@ -287,7 +282,7 @@ class Datatables
         $html .= "</tr></thead><tbody></tbody>";
         if (!$this->hideFooter) {
             $html .= "<tfoot><tr>";
-            for ($i = 0; $i < count($this->column()); $i++) {
+            for ($i = 0; $i < cnt($this->column()); $i++) {
                 if ($this->columns[$i]['visible']) {
                     $html .= "<th><input type='text' name='search_$i' class='search_init form-control' style='width: 100%' /></th>";
                 }
@@ -362,7 +357,7 @@ class Datatables
         if ($sSearch != "") {
             $sSearch = strtolower($this->sql->escape($sSearch));
             $this->where .= ($this->where=='') ? "WHERE (" : " AND (";
-            for ($i=0; $i < count($this->columns); $i++) {
+            for ($i=0; $i < cnt($this->columns); $i++) {
                 #$datatype = $all_cols[$i]->datatype;
                 //Only global filter on string or date columns, integers and bools are pointless
                 #if (($datatype == 'string' || $datatype == 'date') || $ignore_datatypes) {
@@ -486,9 +481,9 @@ class Datatables
         }
 
         //Ordering
-        if (count($iSortCol) > 0) {
+        if (cnt($iSortCol) > 0) {
             $this->order = "ORDER BY  ";
-            for ($i=0 ; $i < count($iSortCol); $i++) {
+            for ($i=0 ; $i < cnt($iSortCol); $i++) {
                 $col = $this->columns[$iSortCol[$i]]['column'];
                 if (stristr($col, " as ")) {
                     $col = substr($col, strripos($col, " as ")+4);
